@@ -46,7 +46,7 @@ Get-CimInstance Win32_UserProfile | ForEach-Object {
    try {
      $ntAccount = (New-Object System.Security.Principal.SecurityIdentifier($_.SID)
       ).Translate([System.Security.Principal.NTAccount]).Value
-     # These are the valit domain accounts.
+     # These are the valid domain accounts.
      # Write-Host $cim.LocalPath $ntAccount
    } catch {
      # These are the stale domain accounts.
