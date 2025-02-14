@@ -39,15 +39,17 @@ Lookup the Domain account name (can throw error):
 
 ### Full Commands
 
-Print LocalPaths, ntAccounts (if available) and be ready to remove:
+List Stale accounts.  Uncomment the Remove line to delete them.
 ```
 Get-CimInstance Win32_UserProfile | ForEach-Object {
    $cim = $_
    try {
      $ntAccount = (New-Object System.Security.Principal.SecurityIdentifier($_.SID)
       ).Translate([System.Security.Principal.NTAccount]).Value
-     Write-Host $cim.LocalPath $ntAccount
+     # These are the valit domain accounts.
+     # Write-Host $cim.LocalPath $ntAccount
    } catch {
+     # These are the stale domain accounts.
      Write-Host $cim.LocalPath
      # $cim | Remove-CimInstance -Confirm:$false
    }
